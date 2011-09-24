@@ -1,4 +1,4 @@
-= ToPDF
+= to_pdf
 
 Render rails actions as a PDF using {PrinceXML}[http://princexml.com/].
 
@@ -56,7 +56,7 @@ This will even work with the Rails 3.1 asset pipeline. However, in development y
   MyProject::Application.configure do
     ...
 
-    config.prince_xml_asset_domain = "http://myproject.dev"
+    config.prince_xml_asset_domain = 'http://myproject.dev'
   end
 
 Another configuration option available is the path to the PrinceXML executable. Again, this can optionally be set on a per environment basis:
