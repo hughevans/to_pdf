@@ -45,13 +45,13 @@ You can though define CSS at the top of the document (note that "body" rules wil
 
 Or link a stylesheet:
 
-  = stylesheet_link_tag 'pdf', media: 'print'
+  = stylesheet_link_tag 'pdf', :media => 'print'
 
   .job
     .name
       = job.name
 
-This will even work with the Rails 3.1 asset pipeline in production although in development you will need to add this line of configuration to your development.rb:
+This will even work with the Rails 3.1 asset pipeline. However, in development you will need to add this line of configuration to your development.rb:
 
   MyProject::Application.configure do
     ...

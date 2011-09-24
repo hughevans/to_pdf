@@ -38,10 +38,11 @@ class PrinceXML
       if @asset_domain
         string.gsub!('link href="/', "link href=\"#{@asset_domain}/")
       elsif defined?(Rails)
-        string.gsub!('link href="/', "link src=\"#{Rails.public_path}/")
+        string.gsub!('link href="/', "link href=\"#{Rails.public_path}/")
         string.gsub!('url(/', "url(#{Rails.public_path}/")
       end
 
+      Rails.logger.info string
       string
     end
   end
