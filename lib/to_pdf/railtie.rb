@@ -1,12 +1,12 @@
 module ToPDF
   class Railtie < Rails::Railtie
-    initializer 'to_pdf.configure_prince_xml' do
-      if Rails.application.config.prince_xml_asset_domain
-        PrinceXML.asset_domain = Rails.application.config.prince_xml_asset_domain
+    initializer 'to_pdf.configure_prince_xml' do |app|
+      if app.config.respond_to? :prince_xml_asset_domain
+        PrinceXML.asset_domain = app.config.prince_xml_asset_domain
       end
 
-      if Rails.application.config.prince_xml_executable_path
-        PrinceXML.executable_path = Rails.application.config.prince_xml_executable_path
+      if app.config.respond_to? :prince_xml_executable_path
+        PrinceXML.executable_path = app.config.prince_xml_executable_path
       end
     end
 
