@@ -42,7 +42,6 @@ class PrinceXML
         string.gsub!('url(/', "url(#{Rails.public_path}/")
       end
 
-      Rails.logger.info string
       string
     end
   end
