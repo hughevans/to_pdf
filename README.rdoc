@@ -1,10 +1,10 @@
 = ToPDF
 
-A no frills PDF render for Rails (>= 3.0) and {PrinceXML}[http://princexml.com/].
+Render rails actions as a PDF using {PrinceXML}[http://princexml.com/].
 
 == Installation 
 
-In your Gemfile:
+In your Gemfile (Rails >= 3.0):
 
   gem 'to_pdf'
 
@@ -41,7 +41,7 @@ You can though define CSS at the top of the document:
         color: #000
         font-family: "DejaVu Sans"
 
-Or you can link to a stylesheet:
+Or link a stylesheet:
 
   = stylesheet_link_tag 'pdf', media: 'print'
 
@@ -49,7 +49,7 @@ Or you can link to a stylesheet:
       .name
         = job.name
 
-This will work with the Rails 3.1 asset pipeline in production, however for it to work in development mode you will need to add this line of configuration to development.rb:
+This will even work with the Rails 3.1 asset pipeline in production although in development you will need to add this line of configuration to your development.rb:
 
   MyProject::Application.configure do
     ...
