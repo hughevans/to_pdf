@@ -1,0 +1,98 @@
+= ToPDF
+
+A no frills PDF render for Rails (>= 3.0) and {PrinceXML}[http://princexml.com/].
+
+== Installation 
+
+In your Gemfile:
+
+  gem 'to_pdf'
+
+== Usage
+
+Create your PDF template like so:
+
+  app/views/jobs/show.pdf.haml
+
+Then in your controller it’s just like responding to HTML or JSON etc.:
+
+  class JobController < ApplicationController
+    respond_to :pdf
+
+    def show
+      @job = Job.find(params[:id])
+      respond_with(@job)
+    end
+  end
+
+PrinceXML cares not for fluff that comes with HTML, treat it like XML and jump straight to the content:
+
+  .job
+    .name
+      = job.name
+
+You can though define CSS at the top of the document:
+
+  %style
+    :sass
+      @page
+        margin: 2cm
+      body
+        color: #000
+        font-family: "DejaVu Sans"
+
+Or you can link to a stylesheet:
+
+  = stylesheet_link_tag 'pdf', media: 'print'
+
+  .job
+      .name
+        = job.name
+
+This will work with the Rails 3.1 asset pipeline in production, however for it to work in development mode you will need to add this line of configuration to development.rb:
+
+  MyProject::Application.configure do
+    ...
+
+    config.prince_xml_asset_domain = "http://myproject.dev"
+  end
+
+Another configuration option available is the path to the PrinceXML executable. Again, this can optionally be set on a per environment basis:
+
+  MyProject::Application.configure do
+    ...
+
+    config.prince_xml_executable_path = '/opt/bin/prince'
+  end
+
+== Caveats
+
+* Only sends PDFs inline
+* Does not use layouts
+
+== Maintainers
+
+* {Hugh Evans}[http://github.com/hughevans]
+
+== License
+
+Copyright 2011 Hugh Evans
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
