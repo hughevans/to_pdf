@@ -25,13 +25,13 @@ Then in your controller it’s just like responding to HTML or JSON etc.:
     end
   end
 
-PrinceXML cares not for fluff that comes with HTML, treat it like XML and jump straight to the content:
+Don’t worry about a regular HTML document structure. Treat it more like XML (example in {HAML}[http://haml-lang.com/]):
 
   .job
     .name
       = job.name
 
-You can though define CSS at the top of the document:
+You can though define CSS at the top of the document (note that "body" rules will apply even though we have not defined that element explicitly in our markup):
 
   %style
     :sass
@@ -40,14 +40,16 @@ You can though define CSS at the top of the document:
       body
         color: #000
         font-family: "DejaVu Sans"
+      p
+        margin: 0 0 1cm 0
 
 Or link a stylesheet:
 
   = stylesheet_link_tag 'pdf', media: 'print'
 
   .job
-      .name
-        = job.name
+    .name
+      = job.name
 
 This will even work with the Rails 3.1 asset pipeline in production although in development you will need to add this line of configuration to your development.rb:
 
