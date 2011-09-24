@@ -70,8 +70,8 @@ Another configuration option available is the path to the PrinceXML executable. 
 == Caveats
 
 * Only sends PDFs inline
-* Does not use layouts
-* Without configuring #prince_xml_asset_domain stylesheets will not load images
+* If you wish to use a layout then it also requires a .pdf format, eg. application.pdf.haml
+* Without configuring a domain with "prince_xml_asset_domain" then stylesheets will not load images
 
 == Maintainers
 
