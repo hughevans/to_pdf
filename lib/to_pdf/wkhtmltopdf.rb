@@ -19,7 +19,10 @@ class Wkhtmltopdf
     def string_to_pdf(string)
       detect_executable_path unless @executable_path
 
-      pdf = IO.popen(wkhtmltopdf_command, 'w+')
+      header = extract_header_url(string)
+      footer = extract_footer_url(string)
+
+      pdf = IO.popen(wkhtmltopdf_command(header, footer), 'w+')
       pdf.puts(localise_paths(string))
       pdf.close_write
       result = pdf.gets(nil)
@@ -28,8 +31,8 @@ class Wkhtmltopdf
       result
     end
 
-    def wkhtmltopdf_command
-      "#{@executable_path} --quiet --allow #{Rails.public_path} - -"
+    def wkhtmltopdf_command(header, footer)
+      "#{@executable_path} -q#{" --header-html '#{header}'" if header}#{" --footer-html '#{footer}'" if footer} - - "
     end
 
     def localise_paths(string)
@@ -43,6 +46,18 @@ class Wkhtmltopdf
       end
 
       string
+    end
+
+    def extract_header_url(string)
+      header_url = nil
+      string.scan(/<meta [^>]*>/).each { |meta| header_url = meta.scan(/content=["']([^"']*)/)[0][0] unless meta.scan(/name="header"/).empty?}
+      header_url
+    end
+
+    def extract_footer_url(string)
+      footer_url = nil
+      string.scan(/<meta [^>]*>/).each { |meta| footer_url = meta.scan(/content=["']([^"']*)/)[0][0] unless meta.scan(/name="footer"/).empty?}
+      footer_url
     end
   end
 end
