@@ -32,7 +32,7 @@ class Wkhtmltopdf
     end
 
     def wkhtmltopdf_command(header, footer)
-      "#{@executable_path} -q#{" --header-html '#{header}'" if header}#{" --footer-html '#{footer}'" if footer} - - "
+      "#{@executable_path} -q --allow #{Rails.public_path}#{" --header-html '#{header}'" if header}#{" --footer-html '#{footer}'" if footer} - - "
     end
 
     def localise_paths(string)
